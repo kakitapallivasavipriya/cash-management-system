@@ -1,6 +1,6 @@
 #  Cash Management System
 
-## 📌 Project Description
+##  Project Description
 
 This project is a **Cash Management System** developed in C.
 It allows multiple users to manage their wallet with different currency denominations.
@@ -9,21 +9,21 @@ The system supports adding money, checking exact change, giving change, and savi
 
 ---
 
-## 🚀 Features
+##  Features
 
-* 👤 Multiple Users Support
-* 🔐 Password Protection for secure operations
-* 💵 Add Money (accumulates values)
-* 📊 Display Wallet Balance
-* ✅ Check Exact Change (Greedy Algorithm)
-* 💸 Give Change (with deduction)
-* 🗑️ Delete User
-* 💾 Save Data to File
-* 📂 Load Data from File
+*  Multiple Users Support
+*  Password Protection for secure operations
+*  Add Money (accumulates values)
+*  Display Wallet Balance
+*  Check Exact Change (Greedy Algorithm)
+*  Give Change (with deduction)
+*  Delete User
+*  Save Data to File
+*  Load Data from File
 
 ---
 
-## 🧠 Concepts Used
+##  Concepts Used
 
 * Structures
 * Arrays
@@ -50,7 +50,7 @@ gcc proj.c
 
 ---
 
-## 🧪 Sample Workflow
+##  Sample Workflow
 
 1. Create a user
 2. Add money to wallet
@@ -61,7 +61,7 @@ gcc proj.c
 
 ---
 
-## 🎯 Example
+##  Example
 
 Input:
 
@@ -83,28 +83,28 @@ Total Rs.100 notes = 5
 
 ---
 
-## 🔒 Security
+##  Security
 
 * Each user has a password
 * Required for adding or deducting money
 
 ---
 
-## 📁 File Storage
+##  File Storage
 
 * Data is stored in `wallet.txt`
 * Supports saving and loading multiple users
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
-* Name: Your Name
-* Course: Your Course Name
+* Name: K VASAVI PRIYA
+* Course: SMALL SCALE APPLICATION DEVELOPMENT
 
 ---
 
-## 📌 Notes
+##  Notes
 
 This project was developed as part of a lab assignment to demonstrate practical usage of C programming concepts.
 
