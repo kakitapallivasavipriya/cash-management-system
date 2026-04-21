@@ -24,7 +24,7 @@ It allows multiple users to manage their wallet, perform transactions, and handl
 
 ---
 
-## 🛠 Technologies Used
+##  Technologies Used
 
 * C Programming Language
 * Structures
