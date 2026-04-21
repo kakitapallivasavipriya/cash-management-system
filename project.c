@@ -59,8 +59,9 @@ void menu() {
     printf("9. Delete User\n");
     printf("10.Show Transaction History\n");
     printf("11.Reset Wallet\n");
+    printf("12.Transfer Money\n");
 
-    printf("12.Exit\n");
+    printf("13.Exit\n");
 
         
 
@@ -69,6 +70,28 @@ void menu() {
 }
 
 // ================= USER MANAGEMENT =================
+
+void addHistory(char msg[]){
+if(historyCount < MAX_HISTORY){
+    strcpy(history[historyCount],msg);
+    historyCount++;
+    }
+}
+
+//display history
+
+void showHistory(){
+if(historyCount == 0){
+    printf("No Transactions yet!\n");
+return;
+}
+
+printf("\nTransaction History: \n");
+
+for(int i =0;i<historyCount;i++){
+printf("%d. %s\n",i+1, history[i]);
+    }
+}
 
 // Create a new user
 
@@ -166,27 +189,6 @@ void deleteUser(){
 
 }
 
-void addHistory(char msg[]){
-if(historyCount < MAX_HISTORY){
-    strcpy(history[historyCount],msg);
-    historyCount++;
-    }
-}
-
-//display history
-
-void showHistory(){
-if(historyCount == 0){
-    printf("No Transactions yet!\n");
-return;
-}
-
-printf("\nTransaction History: \n");
-
-for(int i =0;i<historyCount;i++){
-printf("%d. %s\n",i+1, history[i]);
-    }
-}
 
 //check password
 
@@ -252,6 +254,82 @@ void addMoney() {
     addHistory("Money added");
     printf("Money added successfully!\n");
 }
+
+void transferMoney() {
+    if(currentUser == -1) {
+        printf("No user selected!\n");
+        return;
+    }
+
+    int receiver;
+    int amount;
+
+    printf("\nUsers List:\n");
+    for(int i=0;i<userCount;i++) {
+        printf("%d. %s\n", i, users[i].name);
+    }
+
+    printf("Select receiver: ");
+    scanf("%d", &receiver);
+
+    if(receiver < 0 || receiver >= userCount || receiver == currentUser) {
+        printf("Invalid receiver!\n");
+        return;
+    }
+
+    printf("Enter amount to transfer: ");
+    scanf("%d", &amount);
+
+    if(amount <= 0 || amount % 10 != 0) {
+        printf("Invalid amount!\n");
+        return;
+    }
+
+    //  Password check
+    if(!checkPassword()) return;
+
+    // Check sender balance
+    if(calculateTotal(&users[currentUser]) < amount) {
+        printf("Insufficient balance!\n");
+        return;
+    }
+
+    // Deduct from sender using greedy
+    int values[6] = {10,20,50,100,200,500};
+    int used[6] = {0};
+    int temp = amount;
+
+    for(int i=5;i>=0;i--) {
+        int req = temp / values[i];
+
+        if(req > users[currentUser].notes[i])
+            req = users[currentUser].notes[i];
+
+        used[i] = req;
+        temp -= req * values[i];
+    }
+
+    if(temp != 0) {
+        printf("Cannot transfer exact amount with available notes!\n");
+        return;
+    }
+
+    // Deduct from sender
+    for(int i=0;i<6;i++) {
+        users[currentUser].notes[i] -= used[i];
+    }
+
+    // Add to receiver
+    for(int i=0;i<6;i++) {
+        users[receiver].notes[i] += used[i];
+    }
+
+    printf("Transfer successful!\n");
+
+    // History
+    addHistory("Money transferred");
+}
+
 
 // ================= DISPLAY =================
 
@@ -398,7 +476,7 @@ void resetWallet(){
     }
 
 for(int i=0;i<6;i++){
-    users[currentUser].notes = 0;
+    users[currentUser].notes[i] = 0;
 }
 
 printf("Wallet reset to zero!\n");
@@ -515,6 +593,10 @@ int main() {
                 break;
             
             case 12:
+                transferMoney();
+                break;
+
+            case 13:
                 printf("Thank You.Exiting....\n");
                 exit(0);
  
