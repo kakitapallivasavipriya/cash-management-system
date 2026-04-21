@@ -4,6 +4,10 @@
 
 // ================= CONSTANTS =================
 #define MAX_USERS 100
+#define MAX_HISTORY 100
+
+char history[MAX_HISTORY][100];
+int historyCount = 0;
 
 // ================= STRUCTURE =================
 // Structure to store user details and wallet
@@ -156,6 +160,14 @@ void deleteUser(){
 
 }
 
+void addHistory(char msg[]){
+if(historyCount < MAX_HISTORY){
+    strcpy(history[historyCount],msg);
+    historyCount++;
+    }
+}
+
+//
 //check password
 
 int checkPassword(){
