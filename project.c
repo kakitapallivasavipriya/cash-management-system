@@ -57,7 +57,12 @@ void menu() {
     printf("7. Save to File\n");
     printf("8. Load from File\n");
     printf("9. Delete User\n");
-    printf("10.Exit\n");
+    printf("10.Show Transaction History\n");
+    printf("11.Reset Wallet\n");
+
+    printf("12.Exit\n");
+
+        
 
     printLine();
     printf("Enter choice: ");
@@ -155,7 +160,8 @@ void deleteUser(){
     }else if(currentUser > index){
         currentUser--;
     }
-    
+
+    addHistory("User deleted");
     printf("User deleted successfully!\n");
 
 }
@@ -167,7 +173,21 @@ if(historyCount < MAX_HISTORY){
     }
 }
 
-//
+//display history
+
+void showHistory(){
+if(historyCount == 0){
+    printf("No Transactions yet!\n");
+return;
+}
+
+printf("\nTransaction History: \n");
+
+for(int i =0;i<historyCount;i++){
+printf("%d. %s\n",i+1, history[i]);
+    }
+}
+
 //check password
 
 int checkPassword(){
@@ -229,7 +249,7 @@ void addMoney() {
 
         users[currentUser].notes[i] += input;
     }
-
+    addHistory("Money added");
     printf("Money added successfully!\n");
 }
 
@@ -367,7 +387,23 @@ void giveChange() {
         }
     }
 
+    addHistory("Change given");
     printf("Transaction Successful!\n");
+}
+
+void resetWallet(){
+    if(currentUser == -1){
+    printf("No user selected!\n");
+    return;
+    }
+
+for(int i=0;i<6;i++){
+    users[currentUser].notes = 0;
+}
+
+printf("Wallet reset to zero!\n");
+
+addHistory("Wallet reset");
 }
 
 // ================= SAVE =================
@@ -469,8 +505,16 @@ int main() {
             case 9:
                 deleteUser();
                 break;
-                
+
             case 10:
+                showHistory();
+                break;
+
+            case 11:
+                resetWallet();
+                break;
+            
+            case 12:
                 printf("Thank You.Exiting....\n");
                 exit(0);
  
