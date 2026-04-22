@@ -60,8 +60,10 @@ void menu() {
     printf("10.Show Transaction History\n");
     printf("11.Reset Wallet\n");
     printf("12.Transfer Money\n");
+    printf("13.Save History\n");
+    printf("14.Load History\n");
 
-    printf("13.Exit\n");
+    printf("15.Exit\n");
 
         
 
@@ -91,6 +93,43 @@ printf("\nTransaction History: \n");
 for(int i =0;i<historyCount;i++){
 printf("%d. %s\n",i+1, history[i]);
     }
+}
+
+void saveHistory() {
+    FILE *fp = fopen("history.txt", "w");
+
+    if(fp == NULL) {
+        printf("Error saving history!\n");
+        return;
+    }
+
+    for(int i = 0; i < historyCount; i++) {
+        fprintf(fp, "%s\n", history[i]);
+    }
+
+    fclose(fp);
+    printf("History saved successfully!\n");
+}
+
+void loadHistory() {
+    FILE *fp = fopen("history.txt", "r");
+
+    if(fp == NULL) {
+        printf("No history file found!\n");
+        return;
+    }
+
+    historyCount = 0;
+
+    while(fgets(history[historyCount], 100, fp)) {
+        // Remove newline character
+
+        history[historyCount][strcspn(history[historyCount], "\n")] = 0;
+        historyCount++;
+    }
+
+    fclose(fp);
+    printf("History loaded successfully!\n");
 }
 
 // Create a new user
@@ -597,6 +636,14 @@ int main() {
                 break;
 
             case 13:
+                saveHistory();
+                break;
+
+            case 14:
+                loadHistory();
+                break;
+
+            case 15:
                 printf("Thank You.Exiting....\n");
                 exit(0);
  
@@ -608,3 +655,6 @@ int main() {
 
     return 0;
 }
+
+
+   
